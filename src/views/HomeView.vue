@@ -36,6 +36,7 @@
             placeholder="Search a tag..."
             :disabled="isSearchDisabled"
             v-model="searchValue"
+            @keyup="disableCheck"
           />
         </div>
       </form>
@@ -71,16 +72,17 @@ export default {
     };
   },
   watch: {
-    searchValue(newVal, oldVal) {
-      if (this.searchValue.length !== 0) this.isCheckDisabled = true;
-      if (this.searchValue.length == 0) this.isCheckDisabled = false;
-    },
     checkedTags(newVal, oldVal) {
       if (this.checkedTags.length !== 0) this.isSearchDisabled = true;
       if (this.checkedTags.length == 0) this.isSearchDisabled = false;
     },
   },
   methods: {
+    disableCheck(event) {
+      console.log(event)
+      if (event.length !== 0) this.isCheckDisabled = true;
+      if (event.length == 0) this.isCheckDisabled = false;
+    },
     deleteWebsite(id) {
       this.$emit("deleteWebsite", id);
     },
